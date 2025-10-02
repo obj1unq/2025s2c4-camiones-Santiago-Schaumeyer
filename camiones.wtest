@@ -1,0 +1,32 @@
+import camion.*
+import cosas.*
+
+describe "Test 1 " {
+  test "Carga y descarga del camion" {
+    assert.equals(camion.cosas(), [])
+    camion.cargar(bumbelbee)
+    camion.cargar(knightRider)
+    assert.equals(camion.cosas(), [bumbelbee, knightRider])
+    camion.descargar(bumbelbee)
+    assert.equals(camion.cosas(), [knightRider])
+    assert.throwsException({ camion.cargar(knightRider) } )
+    assert.throwsException({ camion.descargar(bumbelbee) } )
+  }
+
+  test "Se carga a bumbelbee y knightRider, y se calcula el peso total y si es par" {
+    camion.cargar(bumbelbee)
+    assert.equals(camion.cosas(), [bumbelbee])
+    camion.cargar(knightRider)
+    assert.equals(camion.cosas(), [bumbelbee, knightRider])
+    assert.equals(camion.pesoTotal(), 1300)
+    // 1300/2 = 650, es par
+    assert.equals(camion.pesoTotalEsPar(), true)
+  }
+
+  test "se pregunta si existe alguna cosa que pese cierta cantidad de kg" {
+    arenaAGranel.peso(50)
+    camion.cargar(arenaAGranel)
+    assert.equals(camion.hayAlgunoQuePesa(50), true)
+  }
+}
+
